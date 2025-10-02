@@ -1,12 +1,19 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+import { Suspense } from 'react'
 import './App.css'
-import Count from './Count'
+import Comments from './Comments'
+// import Count from './Count'
 // import Device from './device'
 // import Friend from './friends'
 // import Data from "./frndData"
 //import BuyDevice from './condition.jsx' 
+
+const getComments=async()=>{
+  const res=await fetch('https://jsonplaceholder.typicode.com/comments')
+  return res.json()
+}
 
 function App() {
   // const friends =['Ayush','Fais','Fiam','Yaru']
@@ -23,11 +30,15 @@ function App() {
   //   {id:3,Name:'Argus G2',Price: 5990},
   //   {id:4,Name:'Mortorolla EarBuds',Price: 6990}
   // ]
-
+const fetchComments= getComments()
   return (
      <> 
+<Suspense fallback={<h2>Loading...</h2>}>
+<Comments fetchComments={fetchComments}></Comments>
+</Suspense>
 
-<Count></Count>
+
+{/* <Count></Count> */}
 
 {/* <Device Devices={devices}></Device> */}
 
